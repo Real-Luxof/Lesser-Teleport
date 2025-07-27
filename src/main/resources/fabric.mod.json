@@ -1,0 +1,38 @@
+{
+	"schemaVersion": 1,
+	"id": "lessertp",
+	"version": "${version}",
+	"name": "Lesser Teleport",
+	"description": "Ports Lesser Teleport from HexKinetics to 1.20.1.",
+	"authors": [
+		"Luxof"
+	],
+	"contact": {
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/lessertp/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.luxof.lessertp.LesserTeleport"
+		],
+		"client": [
+			"com.luxof.lessertp.LesserTeleportClient"
+		]
+	},
+	"mixins": [
+		"lessertp.mixins.json",
+		{
+			"config": "lessertp.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.16.14",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*",
+		"hexcasting": ">=0.11.2-pre-701"
+	}
+}
