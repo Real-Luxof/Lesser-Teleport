@@ -61,13 +61,15 @@ public class LesserTPAction implements SpellAction {
         }
 
         Optional<LivingEntity> caster = Optional.of(ctx.getCastingEntity());
-        List<ParticleSpray> particles = List.of();
+        List<ParticleSpray> particles;
         if (caster.isPresent()) {
             // my logic for these magic numbers:
             // explosion's particle sizes depend on level and there are always 50 particles from explosion
             // and i don't want this spell to lag a lot if you use it a lot
             // so 1/5th the number of particles from a level 3 explosion but same size seems fairly good
-            particles.add(ParticleSpray.burst(caster.get().getPos(), 3, 10));
+            particles = List.of(ParticleSpray.burst(caster.get().getPos(), 3, 10));
+        } else {
+            particles = List.of();
         }
 		return new SpellAction.Result(
             new Spell(teleportee, fract),
@@ -88,7 +90,12 @@ public class LesserTPAction implements SpellAction {
 
 		@Override
 		public void cast(CastingEnvironment ctx) {
-            Vec3d goToBase = getGoToBase(this.teleportee.getPos());
+            Vec3d entityPos = teleportee.getPos();
+            Vec3d goToBase = new Vec3d(
+                Math.floor(entityPos.x) - entityPos.x,
+                Math.floor(entityPos.y) - entityPos.y,
+                Math.floor(entityPos.z) - entityPos.z
+            );
             OpTeleport.INSTANCE.teleportRespectSticky(
                 teleportee,
                 goToBase,
@@ -100,14 +107,6 @@ public class LesserTPAction implements SpellAction {
                 ctx.getWorld()
             );
 		}
-
-        private static Vec3d getGoToBase(Vec3d entityPos) {
-            return new Vec3d(
-                Math.floor(entityPos.x) - entityPos.x,
-                Math.floor(entityPos.y) - entityPos.y,
-                Math.floor(entityPos.z) - entityPos.z
-            );
-        }
 
         @Override
         public CastingImage cast(CastingEnvironment arg0, CastingImage arg1) {
