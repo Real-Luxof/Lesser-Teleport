@@ -15,18 +15,15 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.luxof.lessertp.LesserTeleport"
-		],
-		"client": [
-			"com.luxof.lessertp.LesserTeleportClient"
+			"com.luxof.lessertp.LesserTeleport",
+			{
+				"adapter": "kotlin",
+				"value": "com.luxof.lessertp.MishapThrower"
+			}
 		]
 	},
 	"mixins": [
-		"lessertp.mixins.json",
-		{
-			"config": "lessertp.client.mixins.json",
-			"environment": "client"
-		}
+		"lessertp.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.16.14",

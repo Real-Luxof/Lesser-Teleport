@@ -23,6 +23,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.Vec3d;
 
+import com.luxof.lessertp.MishapThrowerJava;
+
 public class LesserTPAction implements SpellAction {
     public int getArgc() {
         return 2;
@@ -39,14 +41,14 @@ public class LesserTPAction implements SpellAction {
         Either<Double, Vec3d> arg2 = OperatorUtils.getNumOrVec(args, 1, getArgc());
         Vec3d fract;
         if (arg2.left().isPresent()) {
-            Double num = clamp(arg2.left().get(), 0.0001, 99.99999999);
+            Double num = clamp(arg2.left().get(), 0.001, 0.999);
             fract = new Vec3d(num, num, num);
         } else {
             Vec3d vec = arg2.right().get();
             fract = new Vec3d(
-                clamp(vec.x, 0.0001, 99.99999999),
-                clamp(vec.y, 0.0001, 99.99999999),
-                clamp(vec.z, 0.0001, 99.99999999)
+                clamp(vec.x, 0.001, 0.999),
+                clamp(vec.y, 0.001, 0.999),
+                clamp(vec.z, 0.001, 0.999)
             );
         }
         
@@ -55,9 +57,7 @@ public class LesserTPAction implements SpellAction {
         try {
             ctx.assertEntityInRange(teleportee);
         } catch (MishapEntityTooFarAway e) {
-            // smallminded and java-pilled
-            // (presented as a "bug in the mod" mishap tho)
-            throw new RuntimeException(e);
+            MishapThrowerJava.throwMishap(e);
         }
 
         Optional<LivingEntity> caster = Optional.of(ctx.getCastingEntity());
@@ -91,21 +91,13 @@ public class LesserTPAction implements SpellAction {
 		@Override
 		public void cast(CastingEnvironment ctx) {
             Vec3d entityPos = teleportee.getPos();
-            Vec3d goToBase = new Vec3d(
-                Math.floor(entityPos.x) - entityPos.x,
-                Math.floor(entityPos.y) - entityPos.y,
-                Math.floor(entityPos.z) - entityPos.z
-            );
-            OpTeleport.INSTANCE.teleportRespectSticky(
-                teleportee,
-                goToBase,
-                ctx.getWorld()
-            );
-            OpTeleport.INSTANCE.teleportRespectSticky(
-                teleportee, 
-                this.fract, 
-                ctx.getWorld()
-            );
+			Vec3d offset = new Vec3d(
+				Math.floor(entityPos.x),
+				Math.floor(entityPos.y),
+				Math.floor(entityPos.z)
+			).add(this.fract).subtract(entityPos);
+
+			OpTeleport.INSTANCE.teleportRespectSticky(teleportee, offset, ctx.getWorld());
 		}
 
         @Override

@@ -1,5 +1,8 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
 	id 'fabric-loom' version "${loom_version}"
+	id 'org.jetbrains.kotlin.jvm' version "2.2.20-Beta2"
 	id 'maven-publish'
 }
 
@@ -28,12 +31,14 @@ repositories {
 }
 
 loom {
-	splitEnvironmentSourceSets()
+	// why does this let it build?
+	// i hope i don't want to write client-side code anytime soon
+	//splitEnvironmentSourceSets()
 
 	mods {
 		"lessertp" {
 			sourceSet sourceSets.main
-			sourceSet sourceSets.client
+			//sourceSet sourceSets.client
 		}
 	}
 
@@ -76,16 +81,6 @@ dependencies {
 	implementation("ws.schild:jave-nativebin-win64:3.5.0")
 }
 
-/*kotlin {
-    jvmToolchain(8)
-}
-
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-}*/
-
 processResources {
 	inputs.property "version", project.version
 
@@ -96,6 +91,11 @@ processResources {
 
 tasks.withType(JavaCompile).configureEach {
 	it.options.release = 17
+}
+tasks.withType(KotlinCompile).configureEach {
+	kotlinOptions {
+		jvmTarget = 17
+	}
 }
 
 java {
