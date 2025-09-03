@@ -1,5 +1,5 @@
 {
-    "hexcasting.action.lessertp:lessertp": "Lesser Teleport",
+    "hexcasting.action.lessertp:lesser_tp": "Lesser Teleport",
     "hexcasting.action.book.lessertp:lesser_tp": "Lesser Teleport",
     "lessertp.page.lessertp.title": "Lesser Teleport",
     "lessertp.page.lessertp.introduction": "I am unable to cast the Great Spell Greater Teleport, as I do not have a scroll from the very careless people of old (a spell is a spell, damn it!) to help me. That irked me, so I attempted the creation of my own pattern to allow me to teleport in any way unlike Blink, even if it is weaker than what I wish for.",
