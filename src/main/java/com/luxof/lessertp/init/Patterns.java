@@ -11,10 +11,12 @@ import net.minecraft.util.Identifier;
 
 import com.luxof.lessertp.LesserTeleport;
 import com.luxof.lessertp.actions.LesserTPAction;
+import com.luxof.lessertp.actions.SimplerTPAction;
 
 public class Patterns {
     public static void init() {
         register("lesser_tp", "edqdewqaeaq", HexDir.NORTH_EAST, new LesserTPAction());
+        register("simpler_tp", "qqqqqwqqwqqeqqwqqqw", HexDir.NORTH_WEST, new SimplerTPAction());
     }
 
     private static void register(

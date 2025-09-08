@@ -1,10 +1,5 @@
 package com.luxof.lessertp.actions;
 
-import java.util.List;
-import java.util.Optional;
-
-import com.mojang.datafixers.util.Either;
-
 import at.petrak.hexcasting.api.casting.ParticleSpray;
 import at.petrak.hexcasting.api.casting.castables.SpellAction;
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
@@ -13,17 +8,20 @@ import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
 import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation;
 import at.petrak.hexcasting.api.casting.iota.Iota;
 import at.petrak.hexcasting.api.casting.mishaps.MishapEntityTooFarAway;
-import at.petrak.hexcasting.api.misc.MediaConstants;
 import at.petrak.hexcasting.api.casting.OperatorUtils;
 import at.petrak.hexcasting.api.casting.RenderedSpell;
+import at.petrak.hexcasting.api.misc.MediaConstants;
 import at.petrak.hexcasting.common.casting.actions.spells.great.OpTeleport;
 
+import com.luxof.lessertp.MishapThrowerJava;
+
+import com.mojang.datafixers.util.Either;
+
+import java.util.List;
+
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.Vec3d;
-
-import com.luxof.lessertp.MishapThrowerJava;
 
 public class LesserTPAction implements SpellAction {
     public int getArgc() {
@@ -38,6 +36,9 @@ public class LesserTPAction implements SpellAction {
     @Override
     public SpellAction.Result execute(List<? extends Iota> args, CastingEnvironment ctx) {
         Entity teleportee = OperatorUtils.getEntity(args, 0, getArgc());
+        try { ctx.assertEntityInRange(teleportee); }
+        catch (MishapEntityTooFarAway e) { MishapThrowerJava.throwMishap(e); }
+
         Either<Double, Vec3d> arg2 = OperatorUtils.getNumOrVec(args, 1, getArgc());
         Vec3d fract;
         if (arg2.left().isPresent()) {
@@ -51,30 +52,11 @@ public class LesserTPAction implements SpellAction {
                 clamp(vec.z, 0.001, 0.999)
             );
         }
-        
-        int cost = (int)(MediaConstants.DUST_UNIT * 0.01);
 
-        try {
-            ctx.assertEntityInRange(teleportee);
-        } catch (MishapEntityTooFarAway e) {
-            MishapThrowerJava.throwMishap(e);
-        }
-
-        Optional<LivingEntity> caster = Optional.of(ctx.getCastingEntity());
-        List<ParticleSpray> particles;
-        if (caster.isPresent()) {
-            // my logic for these magic numbers:
-            // explosion's particle sizes depend on level and there are always 50 particles from explosion
-            // and i don't want this spell to lag a lot if you use it a lot
-            // so 1/5th the number of particles from a level 3 explosion but same size seems fairly good
-            particles = List.of(ParticleSpray.burst(caster.get().getPos(), 3, 10));
-        } else {
-            particles = List.of();
-        }
 		return new SpellAction.Result(
             new Spell(teleportee, fract),
-            cost,
-            particles,
+            (long)(MediaConstants.DUST_UNIT * 0.01),
+            List.of(ParticleSpray.burst(ctx.mishapSprayPos(), 3, 10)),
             1
         );
     }

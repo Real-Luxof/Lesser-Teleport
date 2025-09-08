@@ -23,6 +23,7 @@ repositories {
 	maven { url "https://maven.blamejared.com" }
 	maven { url "https://maven.shedaniel.me/" }
     maven { url "https://maven.terraformersmc.com/releases/" }
+	maven { url "https://maven.terraformersmc.com/" }
 	maven { url "https://api.modrinth.com/maven" }
 	maven { url "https://jitpack.io" }
 	maven { url "https://maven.ladysnake.org/releases" }
@@ -79,6 +80,8 @@ dependencies {
 	// Motherfucker skipped 28-99998.
 	implementation("ws.schild:jave-core:3.5.0")
 	implementation("ws.schild:jave-nativebin-win64:3.5.0")
+	// augh fuck it no modmenu just commands
+	//modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}")
 }
 
 processResources {
