@@ -77,7 +77,7 @@
       <ul class="nav navbar-nav navbar-right">
             <li>
     <a
-      href="https://github.com/Real-Luxof/Lesser-Teleport/tree/b30445ebd13a64f788b7d45b1cfee2469d38c894"
+      href="https://github.com/Real-Luxof/Lesser-Teleport/tree/184e158c59c362853eac0546417a03f843ae3893"
         target="_blank"
       class="navbar-link"
       role="button"
@@ -146,13 +146,6 @@
       class="item-texture  texture pixelated"
     > 法术</a></summary>
       <ul>
-          <li><a href="#simplerteleport" class="toc-elem spoilered"><img
-      title="末影之眼"
-      alt="末影之眼"
-      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/ender_eye.png"
-      loading="lazy"
-      class="item-texture  texture pixelated"
-    > Simpler Teleport</a></li>
           <li><a href="#lesserteleport" class="toc-elem "><img
       title="末影珍珠"
       alt="末影珍珠"
@@ -160,6 +153,13 @@
       loading="lazy"
       class="item-texture  texture pixelated"
     > 次级传送</a></li>
+          <li><a href="#simplerteleport" class="toc-elem spoilered"><img
+      title="末影之眼"
+      alt="末影之眼"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/ender_eye.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 简易传送</a></li>
       </ul>
     </details>
 </nav>
@@ -182,84 +182,6 @@
     title="Permalink"
   ><i class="bi bi-link-45deg"></i></a></h2>
     <p>能以魔法影响到世界的图案和操作。</p>
-<div id="simplerteleport" class="entry">
-    <div class="spoilered">
-      <h3 class="entry-title page-header">
-    <img
-      title="末影之眼"
-      alt="末影之眼"
-      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/ender_eye.png"
-      loading="lazy"
-      class="item-texture  texture pixelated"
-    >Simpler Teleport<a
-    href="#table-of-contents"
-    class="permalink small"
-    title="Jump to top"
-  ><i class="bi bi-box-arrow-up"></i></a><a
-    href="#simplerteleport"
-    class="permalink small"
-    title="Permalink"
-  ><i class="bi bi-link-45deg"></i></a></h3>
-    <p>With my recent <span style="color: #8d6acc">Grand Awakening</span>, I felt more confident in my ability to mold and manipulate patterns. This time I&#39;ve decided to use the Greater Teleport spell as a base, and then size it down. The result is a better omni-directional teleportation pattern than Lesser Teleport.</p>
-<br />
-  <div id="simplerteleport@lessertp:simpler_tp" class="">
-<h4 class="pattern-title">Simpler Teleport (entity, vec →)<a
-    href="#simplerteleport@lessertp:simpler_tp"
-    class="permalink small"
-    title="Permalink"
-  ><i class="bi bi-link-45deg"></i></a></h4>
-  <details class="details-collapsible">
-    <summary class="collapse-details collapse-spell"></summary>
-    <div class="dropdown spell-settings-dropdown">
-      <span
-        href=""
-        class="dropdown-toggle spell-settings-toggle"
-        data-toggle="dropdown"
-        role="button"
-        aria-haspopup="true"
-        aria-expanded="false"
-      >
-        <i class="bi bi-gear-fill"></i>
-      </span>
-      <ul class="dropdown-menu">
-        <li class="dropdown-submenu">
-          <a
-            href=""
-            class="dropdown-toggle"
-            data-toggle="dropdown"
-            role="button"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >渲染方式</a>
-          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
-        </li>
-        <li class="dropdown-submenu">
-          <a
-            href=""
-            class="dropdown-toggle"
-            data-toggle="dropdown"
-            role="button"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >配色</a>
-          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
-        </li>
-      </ul>
-    </div>
-      <canvas
-        class="spell-viz"
-        width="216"
-        height="216"
-        data-string="qqqqqwqqwqqeqqwqqqw"
-        data-start="north_west"
-        data-per-world="False"
-      >浏览器不支持图案的可视化。图案代码见此：qqqqqwqqwqqeqqwqqqw</canvas>
-  </details>
-      <p>Takes an entity that will be within my ambit before and after teleportation and an offset vector, the length of which must be no greater than 10. Teleports the entity in that direction. Costs one shard.</p>
-  </div>
-<br />
-    </div>
-</div>
 <div id="lesserteleport" class="entry">
     <h3 class="entry-title page-header">
     <img
@@ -334,9 +256,87 @@
         data-per-world="False"
       >浏览器不支持图案的可视化。图案代码见此：edqdewqaeaq</canvas>
   </details>
-      <p>传入一个实体（在影响范围内）和一个向量，并将实体位置的小数部分变为所给向量（有上下限截断）。若传入数，则代表所有分量均为该数的向量。消耗极少量媒质，效果也是少得可怜。</p>
+      <p>传入一个实体（在影响范围内）和一个向量，并将实体位置的小数部分变为所给向量（有上下限截断）。若传入数，则代表所有分量均为该数的向量。消耗极少量媒质，效果也是弱得可怜。</p>
   </div>
 <br />
+</div>
+<div id="simplerteleport" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="末影之眼"
+      alt="末影之眼"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/ender_eye.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >简易传送<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#simplerteleport"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>鉴于我近期已经历了<span style="color: #8d6acc">卓伟的觉醒</span>，我对塑造和操纵图案更有信心了。这回我打算以卓越传送为基底，再将其缩小。产物是一种万向传送图案，比次级传送好一些。</p>
+<br />
+  <div id="simplerteleport@lessertp:simpler_tp" class="">
+<h4 class="pattern-title">简易传送 (entity, vec →)<a
+    href="#simplerteleport@lessertp:simpler_tp"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqqqqwqqwqqeqqwqqqw"
+        data-start="north_west"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：qqqqqwqqwqqeqqwqqqw</canvas>
+  </details>
+      <p>接受一个实体和一个偏移向量，实体传送前后都应在我影响范围内，同时向量的长度不得超过 10。此图案会沿向量方向传送实体。消耗 1 个紫水晶碎片。</p>
+  </div>
+<br />
+    </div>
 </div>
 </section>
   </main>
