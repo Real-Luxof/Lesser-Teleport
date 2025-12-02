@@ -77,7 +77,7 @@ public class LesserTPAction implements SpellAction {
 			Vec3d newFract = new Vec3d(
 				entityPos.x > 0 ? fract.x : 1 - fract.x,
 				entityPos.y > 0 ? fract.y : 1 - fract.y,
-				entityPos.z > 0 ? fract.z : 1 - fract.z,
+				entityPos.z > 0 ? fract.z : 1 - fract.z
 			);
 			Vec3d offset = new Vec3d(
 				Math.floor(entityPos.x),
