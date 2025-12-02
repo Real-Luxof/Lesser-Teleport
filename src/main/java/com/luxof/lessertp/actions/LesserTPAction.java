@@ -74,15 +74,16 @@ public class LesserTPAction implements SpellAction {
 		public void cast(CastingEnvironment ctx) {
             Vec3d entityPos = teleportee.getPos();
 			// negative coordinates :tasuqe_waaanager:
+			Vec3d newFract = new Vec3d(
+				entityPos.x > 0 ? fract.x : 1 - fract.x,
+				entityPos.y > 0 ? fract.y : 1 - fract.y,
+				entityPos.z > 0 ? fract.z : 1 - fract.z,
+			);
 			Vec3d offset = new Vec3d(
-				entityPos.x > 0 ? Math.floor(entityPos.x) : Math.ceil(entityPos.x),
-				entityPos.y > 0 ? Math.floor(entityPos.y) : Math.ceil(entityPos.y),
-				entityPos.z > 0 ? Math.floor(entityPos.z) : Math.ceil(entityPos.z)
-			).add(new Vec3d(
-				entityPos.x > 0 ? fract.x : -fract.x,
-				entityPos.y > 0 ? fract.y : -fract.y,
-				entityPos.z > 0 ? fract.z : -fract.z,
-			)).subtract(entityPos);
+				Math.floor(entityPos.x),
+				Math.floor(entityPos.y),
+				Math.floor(entityPos.z)
+			).add(newFract).subtract(entityPos);
 
 			OpTeleport.INSTANCE.teleportRespectSticky(teleportee, offset, ctx.getWorld());
 		}
