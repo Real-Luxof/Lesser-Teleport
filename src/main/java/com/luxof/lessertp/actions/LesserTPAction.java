@@ -58,7 +58,7 @@ public class LesserTPAction implements SpellAction {
         }
 
         if(HexConfig.server().canTeleportInThisDimension(ctx.getWorld().getRegistryKey()))
-            MishapThrowerJava.throwMishap(new MishapBadLocation(fract.add(teleportee.getPos().floorAlongAxes(EnumSet.allOf(Direction.Axis.class))), "bad_dimension"));
+            MishapThrowerJava.throwMishap(new MishapBadLocation(fract, "bad_dimension"));
 
 		return new SpellAction.Result(
             new Spell(teleportee, fract),
@@ -68,7 +68,7 @@ public class LesserTPAction implements SpellAction {
         );
     }
 
-    public class Spell implements RenderedSpell {
+    public static class Spell implements RenderedSpell {
         private final Entity teleportee;
         private final Vec3d fract;
 
