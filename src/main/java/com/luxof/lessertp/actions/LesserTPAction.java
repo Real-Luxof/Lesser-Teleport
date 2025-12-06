@@ -7,20 +7,24 @@ import at.petrak.hexcasting.api.casting.eval.OperationResult;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
 import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation;
 import at.petrak.hexcasting.api.casting.iota.Iota;
+import at.petrak.hexcasting.api.casting.mishaps.MishapBadLocation;
 import at.petrak.hexcasting.api.casting.mishaps.MishapEntityTooFarAway;
 import at.petrak.hexcasting.api.casting.OperatorUtils;
 import at.petrak.hexcasting.api.casting.RenderedSpell;
 import at.petrak.hexcasting.api.misc.MediaConstants;
+import at.petrak.hexcasting.api.mod.HexConfig;
 import at.petrak.hexcasting.common.casting.actions.spells.great.OpTeleport;
 
 import com.luxof.lessertp.MishapThrowerJava;
 
 import com.mojang.datafixers.util.Either;
 
+import java.util.EnumSet;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 
 public class LesserTPAction implements SpellAction {
@@ -52,6 +56,9 @@ public class LesserTPAction implements SpellAction {
                 clamp(vec.z, 0.001, 0.999)
             );
         }
+
+        if(HexConfig.server().canTeleportInThisDimension(ctx.getWorld().getRegistryKey()))
+            MishapThrowerJava.throwMishap(new MishapBadLocation(fract.add(teleportee.getPos().floorAlongAxes(EnumSet.allOf(Direction.Axis.class))), "bad_dimension"));
 
 		return new SpellAction.Result(
             new Spell(teleportee, fract),
