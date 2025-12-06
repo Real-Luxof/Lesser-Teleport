@@ -9,6 +9,6 @@ import at.petrak.hexcasting.api.casting.mishaps.Mishap;
 // So I made this just to stop it from being mad at me EVERYWHERE.
 public class MishapThrowerJava {
     public static void throwMishap(Mishap mishap) {
-        MishapThrower.throwMishap(mishap);
+        MishapThrower.INSTANCE.throwMishap(mishap);
     }
 }

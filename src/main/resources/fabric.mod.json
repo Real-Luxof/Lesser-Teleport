@@ -15,11 +15,7 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.luxof.lessertp.LesserTeleport",
-			{
-				"adapter": "kotlin",
-				"value": "com.luxof.lessertp.MishapThrower"
-			}
+			"com.luxof.lessertp.LesserTeleport"
 		]
 	},
 	"mixins": [
