@@ -10,6 +10,7 @@ import at.petrak.hexcasting.api.casting.iota.Iota;
 import at.petrak.hexcasting.api.casting.mishaps.Mishap;
 import at.petrak.hexcasting.api.casting.mishaps.MishapBadLocation;
 import at.petrak.hexcasting.api.misc.MediaConstants;
+import at.petrak.hexcasting.api.mod.HexConfig;
 import at.petrak.hexcasting.api.casting.OperatorUtils;
 import at.petrak.hexcasting.api.casting.RenderedSpell;
 import at.petrak.hexcasting.common.casting.actions.spells.great.OpTeleport;
@@ -40,6 +41,9 @@ public class SimplerTPAction implements SpellAction {
         catch (Mishap e) { MishapThrowerJava.throwMishap(e); }
         if (teleportee.getPos().squaredDistanceTo(posAfterTeleport) > 16*16)
             MishapThrowerJava.throwMishap(new MishapBadLocation(posAfterTeleport, "too_far"));
+
+        if (HexConfig.server().canTeleportInThisDimension(ctx.getWorld().getRegistryKey()))
+            MishapThrowerJava.throwMishap(new MishapBadLocation(posAfterTeleport, "bad_dimension"));
 
 		return new SpellAction.Result(
             new Spell(teleportee, offset),
