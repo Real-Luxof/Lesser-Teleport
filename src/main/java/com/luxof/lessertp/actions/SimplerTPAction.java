@@ -42,7 +42,7 @@ public class SimplerTPAction implements SpellAction {
         if (teleportee.getPos().squaredDistanceTo(posAfterTeleport) > 16*16)
             MishapThrowerJava.throwMishap(new MishapBadLocation(posAfterTeleport, "too_far"));
 
-        if (HexConfig.server().canTeleportInThisDimension(ctx.getWorld().getRegistryKey()))
+        if (!HexConfig.server().canTeleportInThisDimension(ctx.getWorld().getRegistryKey()))
             MishapThrowerJava.throwMishap(new MishapBadLocation(posAfterTeleport, "bad_dimension"));
 
 		return new SpellAction.Result(
