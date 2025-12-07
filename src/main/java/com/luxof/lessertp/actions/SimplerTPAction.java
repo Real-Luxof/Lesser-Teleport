@@ -38,10 +38,8 @@ public class SimplerTPAction implements SpellAction {
         Vec3d posAfterTeleport = teleportee.getPos().add(offset);
         try { ctx.assertVecInRange(posAfterTeleport); }
         catch (Mishap e) { MishapThrowerJava.throwMishap(e); }
-        if (!teleportee.getPos().isInRange(
-            posAfterTeleport,
-            17
-        )) { MishapThrowerJava.throwMishap(new MishapBadLocation(posAfterTeleport, "too_far")); }
+        if (teleportee.getPos().squaredDistanceTo(posAfterTeleport) > 16*16)
+            MishapThrowerJava.throwMishap(new MishapBadLocation(posAfterTeleport, "too_far"));
 
 		return new SpellAction.Result(
             new Spell(teleportee, offset),
