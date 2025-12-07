@@ -19,12 +19,10 @@ import com.luxof.lessertp.MishapThrowerJava;
 
 import com.mojang.datafixers.util.Either;
 
-import java.util.EnumSet;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 
 public class LesserTPAction implements SpellAction {
