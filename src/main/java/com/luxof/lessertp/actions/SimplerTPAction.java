@@ -7,7 +7,6 @@ import at.petrak.hexcasting.api.casting.eval.OperationResult;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
 import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation;
 import at.petrak.hexcasting.api.casting.iota.Iota;
-import at.petrak.hexcasting.api.casting.mishaps.Mishap;
 import at.petrak.hexcasting.api.casting.mishaps.MishapBadLocation;
 import at.petrak.hexcasting.api.misc.MediaConstants;
 import at.petrak.hexcasting.api.mod.HexConfig;
@@ -15,7 +14,7 @@ import at.petrak.hexcasting.api.casting.OperatorUtils;
 import at.petrak.hexcasting.api.casting.RenderedSpell;
 import at.petrak.hexcasting.common.casting.actions.spells.great.OpTeleport;
 
-import com.luxof.lessertp.MishapThrowerJava;
+import static com.luxof.lessertp.LesserTeleport.assertEntityMayBeTeleported;
 
 import java.util.List;
 
@@ -31,19 +30,19 @@ public class SimplerTPAction implements SpellAction {
     @Override
     public SpellAction.Result execute(List<? extends Iota> args, CastingEnvironment ctx) {
         Entity teleportee = OperatorUtils.getEntity(args, 0, getArgc());
-        try { ctx.assertEntityInRange(teleportee); }
-        catch (Mishap e) { MishapThrowerJava.throwMishap(e); }
+        ctx.assertEntityInRange(teleportee);
+        assertEntityMayBeTeleported(teleportee);
 
         Vec3d offset = OperatorUtils.getVec3(args, 1, getArgc());
 
         Vec3d posAfterTeleport = teleportee.getPos().add(offset);
-        try { ctx.assertVecInRange(posAfterTeleport); }
-        catch (Mishap e) { MishapThrowerJava.throwMishap(e); }
+        ctx.assertVecInRange(posAfterTeleport);
+
         if (teleportee.getPos().squaredDistanceTo(posAfterTeleport) > 16*16)
-            MishapThrowerJava.throwMishap(new MishapBadLocation(posAfterTeleport, "too_far"));
+            throw new MishapBadLocation(posAfterTeleport, "too_far");
 
         if (!HexConfig.server().canTeleportInThisDimension(ctx.getWorld().getRegistryKey()))
-            MishapThrowerJava.throwMishap(new MishapBadLocation(posAfterTeleport, "bad_dimension"));
+            throw new MishapBadLocation(posAfterTeleport, "bad_dimension");
 
 		return new SpellAction.Result(
             new Spell(teleportee, offset),

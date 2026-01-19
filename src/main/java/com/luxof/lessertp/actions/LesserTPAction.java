@@ -8,14 +8,13 @@ import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
 import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation;
 import at.petrak.hexcasting.api.casting.iota.Iota;
 import at.petrak.hexcasting.api.casting.mishaps.MishapBadLocation;
-import at.petrak.hexcasting.api.casting.mishaps.MishapEntityTooFarAway;
 import at.petrak.hexcasting.api.casting.OperatorUtils;
 import at.petrak.hexcasting.api.casting.RenderedSpell;
 import at.petrak.hexcasting.api.misc.MediaConstants;
 import at.petrak.hexcasting.api.mod.HexConfig;
 import at.petrak.hexcasting.common.casting.actions.spells.great.OpTeleport;
 
-import com.luxof.lessertp.MishapThrowerJava;
+import static com.luxof.lessertp.LesserTeleport.assertEntityMayBeTeleported;
 
 import com.mojang.datafixers.util.Either;
 
@@ -38,8 +37,8 @@ public class LesserTPAction implements SpellAction {
     @Override
     public SpellAction.Result execute(List<? extends Iota> args, CastingEnvironment ctx) {
         Entity teleportee = OperatorUtils.getEntity(args, 0, getArgc());
-        try { ctx.assertEntityInRange(teleportee); }
-        catch (MishapEntityTooFarAway e) { MishapThrowerJava.throwMishap(e); }
+        ctx.assertEntityInRange(teleportee);
+        assertEntityMayBeTeleported(teleportee);
 
         Either<Double, Vec3d> arg2 = OperatorUtils.getNumOrVec(args, 1, getArgc());
         Vec3d fract;
@@ -56,7 +55,7 @@ public class LesserTPAction implements SpellAction {
         }
 
         if (!HexConfig.server().canTeleportInThisDimension(ctx.getWorld().getRegistryKey()))
-            MishapThrowerJava.throwMishap(new MishapBadLocation(fract, "bad_dimension"));
+            throw new MishapBadLocation(fract, "bad_dimension");
 
 		return new SpellAction.Result(
             new Spell(teleportee, fract),
