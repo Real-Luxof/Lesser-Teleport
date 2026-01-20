@@ -14,9 +14,9 @@ import at.petrak.hexcasting.api.misc.MediaConstants;
 import at.petrak.hexcasting.api.mod.HexConfig;
 import at.petrak.hexcasting.common.casting.actions.spells.great.OpTeleport;
 
-import static com.luxof.lessertp.LesserTeleport.assertEntityMayBeTeleported;
-
 import com.mojang.datafixers.util.Either;
+
+import static com.luxof.lessertp.LesserTeleport.assertEntityMayBeTeleported;
 
 import java.util.List;
 
